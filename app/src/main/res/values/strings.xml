@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ZooProject</string>
+    <string-array name="catagories">
+        <item>Reptiles</item>
+        <item>Birds</item>
+        <item>Mammals</item>
+        <item>Insects</item>
+        <item>frogs</item>
+    </string-array>
+
+
+</resources>
