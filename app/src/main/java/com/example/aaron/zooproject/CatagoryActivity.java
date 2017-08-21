@@ -8,16 +8,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
 public class CatagoryActivity extends AppCompatActivity {
     ListView lvCatagories;
-    String[] catagories;
+    List<String> catagories;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagory);
-        catagories = getResources().getStringArray(R.array.catagories);
+        ZooDatabaseHelper zooDB = new ZooDatabaseHelper(this);
+        catagories = zooDB.getCatagoriest();
+        if(catagories.isEmpty()){
+            zooDB.loadDatabase();
+            catagories = zooDB.getCatagoriest();
+        }
+
         lvCatagories = (ListView)findViewById(R.id.lvCatagories);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,catagories);
         lvCatagories.setOnItemClickListener(new AdapterView.OnItemClickListener() {

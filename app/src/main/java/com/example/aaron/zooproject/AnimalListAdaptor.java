@@ -1,6 +1,7 @@
 package com.example.aaron.zooproject;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,9 @@ public class AnimalListAdaptor extends RecyclerView.Adapter<AnimalListAdaptor.Vi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),AnimalInfoActivity.class);
-                //intent.putExtra("animal", animal);
+                Bundle b = new Bundle();
+                b.putParcelable("animal" , animal);
+                intent.putExtra("animal", b);
                 v.getContext().startActivity(intent);
             }
         });
@@ -51,7 +54,7 @@ public class AnimalListAdaptor extends RecyclerView.Adapter<AnimalListAdaptor.Vi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return animalList.size();
     }
 
 }

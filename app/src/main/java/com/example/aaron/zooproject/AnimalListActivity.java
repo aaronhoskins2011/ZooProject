@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,9 @@ public class AnimalListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animal_list);
+        ZooDatabaseHelper zooDB = new ZooDatabaseHelper(this);
 
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         String catagory = (String)intent.getStringExtra("catagory");
 
         System.out.println("------------------------------->" + catagory);
@@ -32,9 +34,10 @@ public class AnimalListActivity extends AppCompatActivity {
         itemAnimator = new DefaultItemAnimator();
         rvAnimalList.setLayoutManager(layoutManager);
         rvAnimalList.setItemAnimator(itemAnimator);
-        animalListAdaptor = new AnimalListAdaptor(animalList);
+        ArrayList<Animal> list= zooDB.getAnimalList(catagory);
+        Log.d("TAG", "onCreate: " + list.size());
+        animalListAdaptor = new AnimalListAdaptor(list);
         rvAnimalList.setAdapter(animalListAdaptor);
-        initAnaimalList();
         animalListAdaptor.notifyDataSetChanged();
 
 
@@ -43,11 +46,5 @@ public class AnimalListActivity extends AppCompatActivity {
 
     }
 
-    public void initAnaimalList(){
-        animalList.add(new Animal("Bear"));
-        animalList.add(new Animal("ape"));
-        animalList.add(new Animal("mouse"));
-        animalList.add(new Animal("Dear"));
-        animalList.add(new Animal("rabbit"));
-    }
+
 }
